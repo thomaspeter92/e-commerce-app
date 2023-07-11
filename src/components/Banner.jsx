@@ -4,8 +4,8 @@ import Button from './Button';
 function Banner() {
   return (
     <div
-      className="w-full h-72
-     mt-28 relative flex items-center px-10
+      className="w-full h-72 -mt-3
+      relative flex items-center px-5 sm:px-10
      bg-gradient-to-r from-white bg-opacity-50"
     >
       <div className="relative z-10 max-w-[50ch]">

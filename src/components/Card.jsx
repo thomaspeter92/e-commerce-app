@@ -1,11 +1,10 @@
-import { StarIcon } from '@heroicons/react/solid';
 import React, { useEffect } from 'react';
 import Button from './Button';
 import Favorite from './Favorite';
+import StarRating from './StarRating';
 
 function Card({ data }) {
   const [isFavorite, setIsFavorite] = React.useState(false);
-  const rating = Math.floor(data.rating);
   const handleFavorite = () => {
     if (localStorage.getItem('favorite')) {
       let favorites = JSON.parse(localStorage.getItem('favorite'));
@@ -37,7 +36,7 @@ function Card({ data }) {
   }, []);
 
   return (
-    <div className="h-[350px]">
+    <div className="h-full">
       <div className="min-h-[175px] h-1/2 w-full relative bg-gray-100 py-3 px-8">
         <div className="absolute top-2 right-2">
           <Favorite favorite={isFavorite} onClick={handleFavorite} />
@@ -52,7 +51,7 @@ function Card({ data }) {
         <div className="w-full">
           <p className="font-bold text-green-900 text-sm">{data.brand}</p>
           <h5 className=" text-gray-800 flex gap-2 font-medium justify-between items-start">
-            {data.title}
+            <a href={`/product/${data.id}`}>{data.title}</a>
             <span className="font-bold text-lg text-green-900">
               <span className="text-sm">$</span>
               {data.price}
@@ -61,17 +60,7 @@ function Card({ data }) {
           <p className="text-xs text-gray-500 capitalize mb-2">
             {data.category}
           </p>
-          <div className="mb-3 flex">
-            {[...Array(5).keys()].map((x, i) => (
-              <React.Fragment key={'star' + i}>
-                <StarIcon
-                  className={`h-4 ${
-                    x + 1 <= rating ? 'text-yellow-400' : 'text-gray-300'
-                  }`}
-                />
-              </React.Fragment>
-            ))}
-          </div>
+          <StarRating rating={data.rating} />
         </div>
         <Button>Add to Cart</Button>
       </div>

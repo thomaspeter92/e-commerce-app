@@ -5,12 +5,12 @@ import Nav from './Nav';
 function Header() {
   return (
     <header className="w-full fixed top-0 left-0 z-50">
-      <div className="bg-green-900 p-2 px-10 text-white flex justify-between text-center">
+      <div className="flex bg-green-900 p-2 px-10 text-white  justify-between text-center">
         <p className="flex gap-2 items-center">
           <PhoneIcon className="h-4" />
           +01012345678
         </p>
-        <h5>Get 60% Off on Selected Items!</h5>
+        <h5 className="hidden sm:block">Get 60% Off on Selected Items!</h5>
         <p className="flex gap-4 items-center">
           <span className="flex gap-1 items-center">
             Eng

@@ -40,7 +40,7 @@ function Products({ products }) {
   };
 
   return (
-    <div className="px-10 mt-5">
+    <div className="px-5 sm:px-10 mt-5">
       <h2 className="text-center text-lg font-bold text-green-900">
         Choose a Category:
       </h2>
@@ -65,7 +65,10 @@ function Products({ products }) {
       <hr />
       <section className="flex flex-wrap  gap-[30px] gap-y-16 mt-10  justify-center">
         {filteredProducts.map((product, i) => (
-          <div key={product.title + i} className="min-w-[200px] w-[20%]">
+          <div
+            key={product.title + i}
+            className="min-w-[200px] w-full sm:w-[20%] h-[300px] sm:h-[350px]"
+          >
             <Card data={product} />
           </div>
         ))}

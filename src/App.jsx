@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import Banner from './components/Banner';
-import Header from './components/Header';
 import Products from './components/Products';
 
 function App() {
@@ -18,7 +17,6 @@ function App() {
 
   return (
     <>
-      <Header />
       <Banner />
       {products.length > 0 && <Products products={products} />}
     </>
