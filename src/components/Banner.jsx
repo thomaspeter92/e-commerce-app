@@ -8,7 +8,7 @@ function Banner() {
       relative flex items-center px-5 sm:px-10
      bg-gradient-to-r from-white bg-opacity-50"
     >
-      <div className="relative z-10 max-w-[50ch]">
+      <div className="relative max-w-[50ch]">
         <h1 className="text-green-900 font-bold text-5xl mb-5">
           Up to 60% Off on Selected Products!
         </h1>

@@ -4,7 +4,7 @@ import Nav from './Nav';
 
 function Header() {
   return (
-    <header className="w-full fixed top-0 left-0 z-50">
+    <header className="w-full fixed top-0 left-0 z-10">
       <div className="flex bg-green-900 p-2 px-10 text-white  justify-between text-center">
         <p className="flex gap-2 items-center">
           <PhoneIcon className="h-4" />

@@ -1,11 +1,13 @@
 import { XIcon } from '@heroicons/react/solid';
 import React, { useEffect, useState } from 'react';
+import { UserContext } from '../contexts/UserContext';
 import Card from './Card';
 
 function Products({ products }) {
   const [categories, setCategories] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const { loggedIn, user } = React.useContext(UserContext);
 
   const fetchCategories = async () => {
     const response = await fetch('https://dummyjson.com/products/categories');
@@ -42,7 +44,7 @@ function Products({ products }) {
   return (
     <div className="px-5 sm:px-10 mt-5">
       <h2 className="text-center text-lg font-bold text-green-900">
-        Choose a Category:
+        {loggedIn ? 'Hello, ' + user.username + '! ' : ''}Choose a Category:
       </h2>
       <div className="flex items-center gap-3 mt-5 mb-10 flex-wrap justify-center">
         {categories.map((category, i) => (
