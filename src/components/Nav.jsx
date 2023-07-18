@@ -1,15 +1,22 @@
 import { SearchIcon, ShoppingCartIcon } from '@heroicons/react/solid';
 import React from 'react';
 import { UserContext } from '../contexts/UserContext.jsx';
+import { useCartStore } from '../stores/cartStore';
+import Basket from './Basket.jsx';
 import Button from './Button';
 import Login from './Login.jsx';
 
 function Nav() {
   const { loggedIn, user, logout } = React.useContext(UserContext);
   const [loginOpen, setLoginOpen] = React.useState(false);
+  const [cartOpen, setCartOpen] = React.useState(false);
+  const [cart] = useCartStore((state) => [state.cart]);
+  const toggleCart = () => {
+    setCartOpen(!cartOpen);
+  };
   return (
     <>
-      <nav className="shadow bg-white flex justify-between gap-5 items-center text-gray-700 px-10 py-2">
+      <nav className="shadow relative bg-white flex justify-between gap-5 items-center text-gray-700 px-10 py-2">
         <img
           className="h-16"
           src="https://1000logos.net/wp-content/uploads/2020/08/Shopify-Logo.png"
@@ -60,17 +67,26 @@ function Nav() {
             <Button onClick={() => setLoginOpen(true)}>Login</Button>
           )}
 
-          <button className="flex gap-2 items-center">
-            <span className="h-10 w-10 bg-gray-100  rounded-full flex items-center justify-center">
+          <button
+            onClick={toggleCart}
+            className="flex gap-2 items-center bg-gray-100 rounded-full p-3 relative"
+          >
+            <span className="">
               <ShoppingCartIcon className="w-6 text-green-900" />
             </span>
             <span>Cart</span>
+            {cart.length > 0 ? (
+              <div className="absolute top-0 right-0 -translate-y-1/3 rounded-full w-5 h-5 text-sm bg-red-500 font-bold text-white">
+                {cart.length}
+              </div>
+            ) : null}
           </button>
         </div>
       </nav>
       {loginOpen && !loggedIn ? (
         <Login closeModal={() => setLoginOpen(false)} />
       ) : null}
+      {cartOpen ? <Basket /> : null}
     </>
   );
 }

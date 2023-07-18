@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import React, { createContext, useEffect } from 'react';
 
 export const UserContext = createContext();
 
@@ -6,6 +6,7 @@ const UserContextProvider = ({ children }) => {
   const [loggedIn, setLoggedin] = React.useState(false);
   const [user, setUser] = React.useState({});
   const [error, setError] = React.useState(false);
+  const [cart, setCart] = React.useState([]);
 
   const login = async (username, password) => {
     try {
@@ -24,13 +25,27 @@ const UserContextProvider = ({ children }) => {
     }
   };
 
+  useEffect(() => {
+    if (localStorage.getItem('cart')) {
+      setCart(JSON.parse(localStorage.getItem('cart')));
+    }
+  }, []);
+
   const logout = () => {
     setLoggedin(false);
     setUser({});
   };
 
+  const addToCart = (product) => {
+    if (cart.find((item) => item.id === product.id)) return;
+    setCart([...cart, product]);
+    localStorage.setItem('cart', JSON.stringify([...cart, product]));
+  };
+
   return (
-    <UserContext.Provider value={{ loggedIn, user, login, error, logout }}>
+    <UserContext.Provider
+      value={{ loggedIn, user, login, error, logout, addToCart, cart }}
+    >
       {children}
     </UserContext.Provider>
   );

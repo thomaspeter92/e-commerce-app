@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
+import { useCartStore } from '../stores/cartStore';
 import Button from './Button';
 import Favorite from './Favorite';
 import StarRating from './StarRating';
 
 function Card({ data }) {
   const [isFavorite, setIsFavorite] = React.useState(false);
+  const [addToCart] = useCartStore((state) => [state.addToCart]);
+
   const handleFavorite = () => {
     if (localStorage.getItem('favorite')) {
       let favorites = JSON.parse(localStorage.getItem('favorite'));
@@ -54,7 +57,7 @@ function Card({ data }) {
             <a href={`/product/${data.id}`}>{data.title}</a>
             <span className="font-bold text-lg text-green-900">
               <span className="text-sm">$</span>
-              {data.price}
+              {data.price.toLocaleString()}
             </span>
           </h5>
           <p className="text-xs text-gray-500 capitalize mb-2">
@@ -62,7 +65,7 @@ function Card({ data }) {
           </p>
           <StarRating rating={data.rating} />
         </div>
-        <Button>Add to Cart</Button>
+        <Button onClick={() => addToCart(data)}>Add to Cart</Button>
       </div>
     </div>
   );
